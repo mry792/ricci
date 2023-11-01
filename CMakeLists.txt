@@ -7,6 +7,13 @@ find_package(brokkr REQUIRED)
 brokkr_deduce_project_version()
 include(CTest)
 
-brokkr_library(${PROJECT_NAME})
+
+find_package(Boost REQUIRED)
+
+brokkr_library(
+    ${PROJECT_NAME}
+    LIBRARY
+        DEPENDENCIES Boost::headers
+)
 
 brokkr_package()

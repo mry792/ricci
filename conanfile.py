@@ -19,6 +19,10 @@ class RicciRecipe (ConanFile):
 
     settings = 'os', 'compiler', 'build_type', 'arch',
 
+    default_options = {
+        'boost/*:header_only': True,
+    }
+
     def _has_git_repo (self, path):
         try:
             resolved_path = Path(path).resolve()
@@ -69,6 +73,7 @@ class RicciRecipe (ConanFile):
         cmake_layout(self)
 
     tool_requires = 'brokkr/0.2.5@egoss/stable'
+    requires = 'boost/[>=1.83.0 <2.0.0]'
 
     def package_id (self):
         # header-only library
