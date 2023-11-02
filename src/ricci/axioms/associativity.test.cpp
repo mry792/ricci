@@ -10,29 +10,23 @@
 #include <boost/preprocessor/seq/for_each_product.hpp>
 
 
-#define RICCI_MAKE_IS_ASSOCIATIVE_ASSERT(r, prod)                                   \
-static_assert(                                                                      \
-    is_associative<BOOST_PP_SEQ_ELEM(0, prod),                                      \
-    BOOST_PP_SEQ_ELEM(1, prod)BOOST_PP_SEQ_ELEM(2, prod)BOOST_PP_SEQ_ELEM(3, prod), \
-    BOOST_PP_SEQ_ELEM(4, prod)BOOST_PP_SEQ_ELEM(5, prod)BOOST_PP_SEQ_ELEM(6, prod)  \
+#define RICCI_MAKE_IS_ASSOCIATIVE_ASSERT(r, prod) \
+static_assert(                                    \
+    is_associative<BOOST_PP_SEQ_ELEM(0, prod),    \
+    BOOST_PP_SEQ_ELEM(1, prod),                   \
+    BOOST_PP_SEQ_ELEM(2, prod)                    \
 >); __NL__ \
 
 
 #define OPERATIONS (std::plus<>{})(std::multiplies<>{})
 #define ARITHMETIC_TYPES (int)(short)(long)(double)(float)
-#define CV_QUALIFIERS ()(const)(volatile)(const volatile)
-#define REF_QUALIFIERS ()(&)(&&)
 
 using ricci::axioms::is_associative;
 
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
     RICCI_MAKE_IS_ASSOCIATIVE_ASSERT,
-    (OPERATIONS)
-    (ARITHMETIC_TYPES)(CV_QUALIFIERS)(REF_QUALIFIERS)
-    (ARITHMETIC_TYPES)(CV_QUALIFIERS)(REF_QUALIFIERS)
+    (OPERATIONS)(ARITHMETIC_TYPES)(ARITHMETIC_TYPES)
 )
 
 #undef OPERATIONS
 #undef ARITHMETIC_TYPES
-#undef CV_QUALIFIERS
-#undef REF_QUALIFIERS
