@@ -83,6 +83,8 @@ class RicciRecipe (ConanFile):
         if self.settings.get_safe('compiler.cppstd'):
             check_min_cppstd(self, 20)
 
+    test_requires = 'catch2/3.4.0'
+
     def source (self):
         source = self.conan_data['source']
         if source['url'] != '(local)':

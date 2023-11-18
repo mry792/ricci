@@ -1,27 +1,32 @@
 #ifndef RICCI__AXIOMS__ASSOCIATIVITY_HPP_
 #define RICCI__AXIOMS__ASSOCIATIVITY_HPP_
 
-#include <functional>
 #include <type_traits>
 
+#include "ricci/concepts/std_ext.hpp"
+#include "ricci/xt/operators.hpp"
+
 namespace ricci::axioms {
+namespace impl_ {
 template <auto t_op, typename T_Arg_1, typename T_Arg_2>
-struct IsAssociative : std::false_type {};
+struct Is_Associative_ : std::false_type {};
+}  // namespace impl_
 
 template <auto t_op, typename T_Arg_1, typename T_Arg_2>
-constexpr bool is_associative = IsAssociative<t_op, T_Arg_1, T_Arg_2>::value;
+constexpr bool is_associative = impl_::Is_Associative_<
+    t_op,
+    std::remove_cvref_t<T_Arg_1>,
+    std::remove_cvref_t<T_Arg_2>
+>::value;
+
+namespace impl_ {
+template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
+struct Is_Associative_<xt::operators::add, T_Arg_1, T_Arg_2> : std::true_type {};
 
 template <typename T_Arg_1, typename T_Arg_2>
-requires
-    std::is_arithmetic_v<std::remove_reference_t<T_Arg_1>> and
-    std::is_arithmetic_v<std::remove_reference_t<T_Arg_2>>
-struct IsAssociative<std::plus<>{}, T_Arg_1, T_Arg_2> : std::true_type {};
-
-template <typename T_Arg_1, typename T_Arg_2>
-requires
-    std::is_arithmetic_v<std::remove_reference_t<T_Arg_1>> and
-    std::is_arithmetic_v<std::remove_reference_t<T_Arg_2>>
-struct IsAssociative<std::multiplies<>{}, T_Arg_1, T_Arg_2> : std::true_type {};
+requires std::is_arithmetic_v<T_Arg_1> and std::is_arithmetic_v<T_Arg_2>
+struct Is_Associative_<xt::operators::multiply, T_Arg_1, T_Arg_2> : std::true_type {};
+}  // namespace impl_
 }  // namespace ricci::axioms
 
 #endif  // RICCI__AXIOMS__ASSOCIATIVITY_HPP_

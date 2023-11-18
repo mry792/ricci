@@ -9,11 +9,13 @@ include(CTest)
 
 
 find_package(Boost REQUIRED)
+find_package(Catch2 REQUIRED)
 
 brokkr_library(
     ${PROJECT_NAME}
     LIBRARY
         DEPENDENCIES Boost::headers
+    UNIT_TESTS PROFILE Catch2
 )
 
 brokkr_package()
