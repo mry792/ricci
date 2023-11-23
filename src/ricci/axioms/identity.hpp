@@ -3,6 +3,7 @@
 
 #include <type_traits>
 
+#include "ricci/concepts/std_ext.hpp"
 #include "ricci/xt/Constant.hpp"
 #include "ricci/xt/operators.hpp"
 
@@ -29,28 +30,16 @@ inline constexpr bool has_identity = requires {
 };
 
 namespace impl_ {
-template <typename T_Arg_1, typename T_Arg_2>
-requires std::is_arithmetic_v<T_Arg_1> and std::is_arithmetic_v<T_Arg_2>
+template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
 struct Identity_<xt::operators::add, T_Arg_1, T_Arg_2> {
-    inline constexpr xt::Constant<0> value{};
+    using type = std::common_type_t<T_Arg_1, T_Arg_2>;
+    static constexpr xt::Constant<type{0}> value{};
 };
 
-template <typename T_Arg_1, typename T_Arg_2>
-requires std::is_arithmetic_v<T_Arg_1> and std::is_arithmetic_v<T_Arg_2>
-struct Identity_<xt::operators::subtract, T_Arg_1, T_Arg_2> {
-    inline constexpr xt::Constant<0> value{};
-};
-
-template <typename T_Arg_1, typename T_Arg_2>
-requires std::is_arithmetic_v<T_Arg_1> and std::is_arithmetic_v<T_Arg_2>
+template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
 struct Identity_<xt::operators::multiply, T_Arg_1, T_Arg_2> {
-    inline constexpr xt::Constants<1> value{};
-};
-
-template <typename T_Arg_1, typename T_Arg_2>
-requires std::is_arithmetic_v<T_Arg_1> and std::is_arithmetic_v<T_Arg_2>
-struct Identity_<xt::operators::divide, T_Arg_1, T_Arg_2> {
-    inline constexpr xt::Constants<1> value{};
+    using type = std::common_type_t<T_Arg_1, T_Arg_2>;
+    static constexpr xt::Constant<type{1}> value{};
 };
 }  // namespace impl_
 }  // namespace ricci::axioms
