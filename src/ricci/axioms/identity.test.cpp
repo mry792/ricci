@@ -25,7 +25,7 @@ using ricci::axioms::has_identity;
 
 #define OPERATIONS (operators::add)(operators::multiply)
 #define ARITHMETIC_TYPES (int)(short)(long)(double)(float)
-#define QUALIFIERS ()( const)( volatile)( const volatile)
+#define QUALIFIERS ()(&)(&&)( const)( const&)
 
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
     RICCI_MAKE_HAS_IDENTITY_ASSERT,

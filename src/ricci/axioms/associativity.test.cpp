@@ -25,7 +25,7 @@ using ricci::axioms::is_associative;
 
 #define OPERATIONS (operators::add)(operators::multiply)
 #define ARITHMETIC_TYPES (int)(short)(long)(double)(float)
-#define QUALIFIERS ()( const)( volatile)( const volatile)
+#define QUALIFIERS ()(&)(&&)( const)( const&)
 
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
     RICCI_MAKE_IS_ASSOCIATIVE_ASSERT,
