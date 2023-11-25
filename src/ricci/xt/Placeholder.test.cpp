@@ -40,27 +40,28 @@ TEST_CASE ("ricci::xt::Placeholder - operator =") {
 
     using boost::hana::pair;
     using boost::hana::second;
+    using boost::hana::type;
 
-    using Plh = Placeholder<double, Testing_Tag>;
-    Plh placeholder;
+    Placeholder<double, Testing_Tag> placeholder;
+    using Tag_T = type<Testing_Tag>;
 
     SECTION ("literal") {
         auto substitution = (placeholder = 7);
-        static_assert(std::same_as<decltype(substitution), pair<Plh, int>>);
+        static_assert(std::same_as<decltype(substitution), pair<Tag_T, int>>);
         CHECK(second(substitution) == 7);
     }
 
     SECTION ("variable") {
         float value = 2.3;
         auto substitution = (placeholder = value);
-        static_assert(std::same_as<decltype(substitution), pair<Plh, float&>>);
+        static_assert(std::same_as<decltype(substitution), pair<Tag_T, float&>>);
         CHECK(&second(substitution) == &value);
     }
 
     SECTION ("moved variable") {
         long value = -88;
         auto substitution = (placeholder = std::move(value));
-        static_assert(std::same_as<decltype(substitution), pair<Plh, long>>);
+        static_assert(std::same_as<decltype(substitution), pair<Tag_T, long>>);
         CHECK(second(substitution) == -88);
     }
 }

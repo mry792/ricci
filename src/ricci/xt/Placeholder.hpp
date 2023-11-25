@@ -23,10 +23,11 @@ struct Placeholder {
     operator = (T_Value&& value) const {
         using boost::hana::pair;
         using boost::hana::type;
+        using boost::hana::type_c;
         using ricci::mp::Received;
 
-        return pair<Placeholder, Received<T_Value>>{
-            *this,
+        return pair<type<T_Tag>, Received<T_Value>>{
+            type_c<T_Tag>,
             std::forward<T_Value>(value)
         };
     }

@@ -18,6 +18,10 @@
 namespace ricci::xt {
 template <typename T_Sub_Map>
 struct Evaluator {
+  private:
+    using terminal_tag = boost::yap::expr_tag<boost::yap::expr_kind>;
+
+  public:
     T_Sub_Map sub_map_;
 
     // // value or constant
@@ -30,27 +34,28 @@ struct Evaluator {
     // }
 
     // placeholder
-    template <typename T_Placeholder>
-    requires kind_of<T_Placeholder> == Expr_Kind::placeholder
-    constexpr decltype(auto) operator () (T_Placeholder) const {
+    template <typename T, typename T_Tag>
+    constexpr decltype(auto) operator () (
+        terminal_tag,
+        Placeholder<T, T_Tag>
+    ) const {
         using boost::hana::find;
-        using boost::hana::type_;
-        constexpr auto key = type_c<T_Placeholder>;
+        using boost::hana::type_c;
+        constexpr auto key = type_c<T_Tag>;
         return find(sub_map_, key).value();
     }
 
-    // operation
-    template <typename T_Expr>
-    requires kind_of<std::remove_cvref_t<T_Expr>> == Expr_Kind::operation
-    constexpr auto operator () (T_Expr&& expr) const {
-        using boost::hana::on;
-        using boost::hana::unpack;
+    // // operation
+    // template <typename T_Expr>
+    // constexpr auto operator () (T_Expr&& expr) const {
+    //     using boost::hana::on;
+    //     using boost::hana::unpack;
 
-        return unpack(
-            std::forward<T_Expr>(expr).args(),
-            on(std::forward<T_Expr>(expr).op(), *this)
-        );
-    }
+    //     return unpack(
+    //         std::forward<T_Expr>(expr).args(),
+    //         on(std::forward<T_Expr>(expr).op(), *this)
+    //     );
+    // }
 };
 
 struct Evaluate {
