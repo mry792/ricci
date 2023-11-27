@@ -1,5 +1,4 @@
-#ifndef RICCI__AXIOMS__IDENTITY_HPP_
-#define RICCI__AXIOMS__IDENTITY_HPP_
+#pragma once
 
 #include <type_traits>
 
@@ -25,5 +24,3 @@ inline constexpr bool has_identity = requires {
     >::value };
 };
 }  // namespace ricci::axioms
-
-#endif  // RICCI__AXIOMS__IDENTITY_HPP_

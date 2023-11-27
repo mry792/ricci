@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__EXPRESSION_HPP_
-#define RICCI__XT__EXPRESSION_HPP_
+#pragma once
 
 #include <type_traits>
 
@@ -47,5 +46,3 @@ struct Result_Of_<T_Expr> {
 };
 }  // namespace impl_
 }  // namespace ricci::xt
-
-#endif  // RICCI__XT__EXPRESSION_HPP_

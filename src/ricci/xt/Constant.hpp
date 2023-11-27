@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__CONSTANT_HPP_
-#define RICCI__XT__CONSTANT_HPP_
+#pragma once
 
 #include <iosfwd>
 
@@ -29,5 +28,3 @@ struct Result_Of_<Constant<t_value>> {
 };
 }  // namespace impl_
 }  // namespace ricci::xt
-
-#endif  // RICCI__XT__CONSTANT_HPP_

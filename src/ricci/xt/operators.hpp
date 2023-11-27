@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__OPERATORS_HPP_
-#define RICCI__XT__OPERATORS_HPP_
+#pragma once
 
 /*!
  * @file
@@ -219,5 +218,3 @@ inline constexpr Invoke invoke{};
 #undef RICCI_DEFINE_UNARY_POSTFIX_OPERATOR
 #undef RICCI_DEFINE_BINARY_OPERATOR
 #undef RICCI_DEFINE_UNARY_LEFT_FOLD_OPERATOR
-
-#endif  // RICCI__XT__OPERATORS_HPP_

@@ -1,8 +1,5 @@
-#ifndef RICCI__PP__MACRO_DEBUGGING_HPP_
-#define RICCI__PP__MACRO_DEBUGGING_HPP_
+#pragma once
 
 #ifndef RICCI_MACRO_DEBUGGING
 #define __NL__
 #endif
-
-#endif  // RICCI__PP__MACRO_DEBUGGING_HPP_

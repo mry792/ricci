@@ -1,5 +1,4 @@
-#ifndef RICCI__AXIOMS__COMMUTATIVITY_HPP_
-#define RICCI__AXIOMS__COMMUTATIVITY_HPP_
+#pragma once
 
 #include <type_traits>
 
@@ -16,5 +15,3 @@ constexpr bool is_commutative = impl_::Is_Commutative_<
     std::remove_cvref_t<T_Arg_2>
 >::value;
 }  // namespace ricci::axioms
-
-#endif  // RICCI__AXIOMS__COMMUTATIVITY_HPP_

@@ -1,5 +1,4 @@
-#ifndef RICCI__AXIOMS__ARITHMETIC_HPP_
-#define RICCI__AXIOMS__ARITHMETIC_HPP_
+#pragma once
 
 #include <type_traits>
 
@@ -41,5 +40,3 @@ struct Identity_<xt::operators::multiply, T_Arg_1, T_Arg_2> {
     static constexpr xt::Constant<type{1}> value{};
 };
 }  // namespace ricci::axioms::impl_
-
-#endif  // RICCI__AXIOMS__ARITHMETIC_HPP_

@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__OPERATOR_FOR_YAP_HPP_
-#define RICCI__XT__OPERATOR_FOR_YAP_HPP_
+#pragma once
 
 #include <boost/yap/algorithm_fwd.hpp>
 
@@ -95,6 +94,3 @@ using Operator_For_Yap = typename impl_::Operator_For_Yap_<t_expr_kind>::type
 template <boost::yap::expr_kind t_expr_kind>
 inline constexpr auto operator_for_yap = impl_::Operator_For_Yap_<t_expr_kind>::type{};
 }  // namespace ricci::xt
-
-
-#endif  // RICCI__XT__OPERATOR_FOR_YAP_HPP_

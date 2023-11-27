@@ -1,5 +1,4 @@
-#ifndef RICCI__AXIOMS__ASSOCIATIVITY_HPP_
-#define RICCI__AXIOMS__ASSOCIATIVITY_HPP_
+#pragma once
 
 #include <type_traits>
 
@@ -16,5 +15,3 @@ constexpr bool is_associative = impl_::Is_Associative_<
     std::remove_cvref_t<T_Arg_2>
 >::value;
 }  // namespace ricci::axioms
-
-#endif  // RICCI__AXIOMS__ASSOCIATIVITY_HPP_
