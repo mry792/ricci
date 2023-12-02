@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__OPERATORS_HPP_
-#define RICCI__XT__OPERATORS_HPP_
+#pragma once
 
 #include <functional>
 #include <type_traits>
@@ -64,5 +63,3 @@ struct Invoke {
 };
 static constexpr Invoke invoke{};
 }  // namespace ricci::xt::operators
-
-#endif  // RICCI__XT__OPERATORS_HPP_

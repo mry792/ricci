@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__PLACEHOLDER_HPP_
-#define RICCI__XT__PLACEHOLDER_HPP_
+#pragma once
 
 #include <string_view>
 #include <type_traits>
@@ -43,5 +42,3 @@ struct Result_Of_<Placeholder<T, T_Tag>> {
 }  // namespace ricci::xt
 
 #define RICCI_MAKE_TAG(NAME) struct NAME##_Tag { static constexpr std::string_view name = #NAME; }
-
-#endif  // RICCI__XT__PLACEHOLDER_HPP_

@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__EXPR_KIND_HPP_
-#define RICCI__XT__EXPR_KIND_HPP_
+#pragma once
 
 namespace ricci::xt {
 enum class Expr_Kind {
@@ -19,5 +18,3 @@ struct Kind_Of_ {
 template <typename T>
 inline constexpr Expr_Kind kind_of = impl_::Kind_Of_<T>::value;
 }  // namespace ricci::xt
-
-#endif  // RICCI__XT__EXPR_KIND_HPP_

@@ -1,5 +1,4 @@
-#ifndef RICCI__MP__MEMBER_HPP_
-#define RICCI__MP__MEMBER_HPP_
+#pragma once
 
 #include <type_traits>
 #include <utility>
@@ -21,5 +20,3 @@ struct Member<T, T_Tag> {
     constexpr T get_ () const noexcept { return T{}; }
 };
 }  // namespace ricci::mp
-
-#endif  // RICCI__MP__MEMBER_HPP_

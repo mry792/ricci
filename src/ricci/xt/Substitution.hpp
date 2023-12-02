@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__SUBSTITUTION_HPP_
-#define RICCI__XT__SUBSTITUTION_HPP_
+#pragma once
 
 #include "ricci/mp/Member.hpp"
 
@@ -18,5 +17,3 @@ struct Substitution : ricci::mp::Member<T_Expression> {
     constexpr Replacement&&      replacement () &&     { return static_cast<Repl_Member&&     >(*this).get_(); }
 };
 }  // namespace ricci::xt
-
-#endif  // RICCI__XT__SUBSTITUTION_HPP_

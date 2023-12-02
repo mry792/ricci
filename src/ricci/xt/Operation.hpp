@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__OPERATION_HPP_
-#define RICCI__XT__OPERATION_HPP_
+#pragma once
 
 #include <type_traits>
 #include <utility>
@@ -58,5 +57,3 @@ struct Result_Of_<Operation<t_op, T_Args...>> {
 };
 }  // namespace impl_
 }  // namespace ricci::xt
-
-#endif  // RICCI__XT__OPERATION_HPP_

@@ -1,5 +1,4 @@
-#ifndef RICCI__AXIOMS__ASSOCIATIVITY_HPP_
-#define RICCI__AXIOMS__ASSOCIATIVITY_HPP_
+#pragma once
 
 #include <functional>
 #include <type_traits>
@@ -23,5 +22,3 @@ requires
     std::is_arithmetic_v<std::remove_reference_t<T_Arg_2>>
 struct IsAssociative<std::multiplies<>{}, T_Arg_1, T_Arg_2> : std::true_type {};
 }  // namespace ricci::axioms
-
-#endif  // RICCI__AXIOMS__ASSOCIATIVITY_HPP_

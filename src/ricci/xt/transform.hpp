@@ -1,6 +1,4 @@
-
-#ifndef RICCI__XT__TRANSFORM_HPP_
-#define RICCI__XT__TRANSFORM_HPP_
+#pragma once
 
 #include <functional>
 #include <utility>
@@ -32,5 +30,3 @@ struct Transform {
 };
 inline constexpr Transform transform{};
 }  // namespace ricci::xt
-
-#endif  // RICCI__XT__TRANSFORM_HPP_

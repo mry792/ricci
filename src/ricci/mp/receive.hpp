@@ -1,5 +1,4 @@
-#ifndef RICCI__MP__RECEIVE_HPP_
-#define RICCI__MP__RECEIVE_HPP_
+#pragma once
 
 #include <type_traits>
 #include <utility>
@@ -13,5 +12,3 @@ constexpr Received<T> receive (T&& t) {
     return std::forward<T>(t);
 }
 }  // namespace ricci::mp
-
-#endif  // RICCI__MP__RECEIVE_HPP_

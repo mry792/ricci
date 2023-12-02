@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__PLACEHOLDER_2_HPP_
-#define RICCI__XT__PLACEHOLDER_2_HPP_
+#pragma once
 
 #include <type_traits>
 #include <utility>
@@ -27,5 +26,3 @@ struct Result_Of_<Placeholder_2<T, T_Tag>> {
 };
 }  // namespace impl_
 }  // namespace ricci::xt
-
-#endif  // RICCI__XT__PLACEHOLDER_2_HPP_

@@ -1,5 +1,4 @@
-#ifndef RICCI__XT__EVALUATE_HPP_
-#define RICCI__XT__EVALUATE_HPP_
+#pragma once
 
 #include <utility>
 
@@ -66,5 +65,3 @@ struct Evaluate {
 };
 inline constexpr Evaluate evaluate{};
 }  // namespace ricci::xt
-
-#endif  // RICCI__XT__EVALUATE_HPP_
