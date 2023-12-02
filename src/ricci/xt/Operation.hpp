@@ -35,7 +35,7 @@ struct Operation : ricci::mp::Member<boost::hana::basic_tuple<T_Args...>> {
 template <auto t_op>
 struct Make_Operation {
     template <typename... T_Args>
-    constexpr Operation<t_op, Received<T_Args>...>
+    constexpr Operation<t_op, mp::Received<T_Args>...>
     operator () (T_Args&&... args) const {
         return {boost::hana::basic_tuple<mp::Received<T_Args>...>{
             std::forward<T_Args>(args)...
@@ -47,7 +47,7 @@ inline constexpr Make_Operation<t_op> make_operation{};
 
 namespace impl_ {
 template <auto t_op, typename... T_Args>
-struct Expr_Kind_<Operation<t_op, T_Args...>> {
+struct Kind_Of_<Operation<t_op, T_Args...>> {
     static constexpr Expr_Kind value = Expr_Kind::operation;
 };
 

@@ -12,7 +12,7 @@ namespace impl_ {
 template <typename T>
 struct Kind_Of_ {
     static constexpr Expr_Kind value = Expr_Kind::value;
-}
+};
 }  // namespace impl_
 
 template <typename T>

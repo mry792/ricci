@@ -2,6 +2,7 @@
 
 #include "ricci/xt/Constant.hpp"
 #include "ricci/xt/Expr_Kind.hpp"
+#include "ricci/xt/Result_Of.hpp"
 
 namespace ricci::xt {
 template <auto t_value>
@@ -13,7 +14,7 @@ struct Constant {
 };
 
 template <auto t_value>
-static constexpr constant = Constant<t_value>{};
+static constexpr auto constant = Constant<t_value>{};
 
 namespace impl_ {
 template <auto t_value>
