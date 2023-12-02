@@ -5,13 +5,22 @@
 namespace ricci::axioms {
 namespace impl_ {
 template <auto t_op, typename T_Arg_1, typename T_Arg_2>
-struct Is_Associative_ : std::false_type {};
+struct Identity_;
 }  // namespace impl_
 
 template <auto t_op, typename T_Arg_1, typename T_Arg_2>
-constexpr bool is_associative = impl_::Is_Associative_<
+inline constexpr auto identity = impl_::Identity_<
     t_op,
     std::remove_cvref_t<T_Arg_1>,
     std::remove_cvref_t<T_Arg_2>
 >::value;
+
+template <auto t_op, typename T_Arg_1, typename T_Arg_2>
+inline constexpr bool has_identity = requires {
+    { impl_::Identity_<
+        t_op,
+        std::remove_cvref_t<T_Arg_1>,
+        std::remove_cvref_t<T_Arg_2>
+    >::value };
+};
 }  // namespace ricci::axioms
