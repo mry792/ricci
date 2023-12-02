@@ -17,16 +17,25 @@ struct Placeholder {
     using Result = T;
     using Tag = T_Tag;
 
-    template <typename T_Expression>
+    template <typename T_Value>
     constexpr decltype(auto)
-    operator = (T_Expression&& expr) const {
-        using boost::hana::make_pair;
+    operator = (T_Value&& value) const {
+        using boost::hana::pair;
+        using boost::hana::type;
         using boost::hana::type_c;
-        using ricci::mp::receive;
+        using ricci::mp::Received;
 
-        return make_pair(type_c<Placeholder>, receive<T_Expression>(expr));
+        return pair<type<T_Tag>, Received<T_Value>>{
+            type_c<T_Tag>,
+            std::forward<T_Value>(value)
+        };
     }
 };
+
+template <typename T, typename T_Tag>
+std::ostream& operator << (std::ostream& out, Placeholder<T, T_Tag>) {
+    return out << T_Tag::name;
+}
 
 namespace impl_ {
 template <typename T, typename T_Tag>
@@ -41,4 +50,5 @@ struct Result_Of_<Placeholder<T, T_Tag>> {
 }  // namespace impl_
 }  // namespace ricci::xt
 
-#define RICCI_MAKE_TAG(NAME) struct NAME##_Tag { static constexpr std::string_view name = #NAME; }
+#define RICCI_MAKE_PLACEHOLDER_TAG(NAME) \
+struct NAME##_Tag { static constexpr std::string_view name = #NAME; }
