@@ -13,16 +13,16 @@
 namespace ricci::xt {
 template <auto t_op, typename... T_Args>
 struct Operation : ricci::mp::Member<boost::hana::basic_tuple<T_Args...>> {
-  private:
-    using Args_Member = ricci::mp::Member<boost::hana::basic_tuple<T_Args...>>;
-
   public:
     using Operator = decltype(t_op);
     using Arguments = boost::hana::basic_tuple<T_Args...>;
     using Result = std::invoke_result_t<Operator, Result_Of<T_Args>...>;
 
+  private:
+    using Args_Member = ricci::mp::Member<Arguments>;
     // static_assert(std::is_empty_v<Operator>, "Operator `t_op` must be an empty type.");
 
+  public:
     using Args_Member::Args_Member;
 
     constexpr Operator op () const { return t_op; }
@@ -35,11 +35,13 @@ struct Operation : ricci::mp::Member<boost::hana::basic_tuple<T_Args...>> {
 template <auto t_op>
 struct Make_Operation {
     template <typename... T_Args>
-    constexpr Operation<t_op, mp::Received<T_Args>...>
-    operator () (T_Args&&... args) const {
-        return {boost::hana::basic_tuple<mp::Received<T_Args>...>{
-            std::forward<T_Args>(args)...
-        }};
+    constexpr auto operator () (T_Args&&... args) const {
+        using Operation_Type = Operation<t_op, std::remove_cvref_t<T_Args>...>;
+        return Operation_Type{
+            typename Operation_Type::Arguments{
+                std::forward<T_Args>(args)...
+            }
+        };
     }
 };
 template <auto t_op>

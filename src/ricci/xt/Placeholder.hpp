@@ -4,51 +4,36 @@
 #include <type_traits>
 #include <utility>
 
-#include <boost/hana/type.hpp>
 #include <boost/hana/pair.hpp>
 
 #include "ricci/mp/receive.hpp"
-#include "ricci/xt/Expr_Kind.hpp"
-#include "ricci/xt/Result_Of.hpp"
+#include "ricci/xt/Variable.hpp"
 
 namespace ricci::xt {
-template <typename T, typename T_Tag>
+template <typename T_Tag>
 struct Placeholder {
-    using Result = T;
     using Tag = T_Tag;
 
     template <typename T_Value>
-    constexpr decltype(auto)
-    operator = (T_Value&& value) const {
-        using boost::hana::pair;
-        using boost::hana::type;
-        using boost::hana::type_c;
-        using ricci::mp::Received;
+    static constexpr Variable<T_Value, T_Tag> as () {
+        return {};
+    }
 
-        return pair<type<T_Tag>, Received<T_Value>>{
-            type_c<T_Tag>,
-            std::forward<T_Value>(value)
-        };
+    template <typename T_Value>
+    constexpr boost::hana::pair<T_Tag, ricci::mp::Received<T_Value>>
+    operator = (T_Value&& value) const {
+        return {{}, std::forward<T_Value>(value)};
     }
 };
 
-template <typename T, typename T_Tag>
-std::ostream& operator << (std::ostream& out, Placeholder<T, T_Tag>) {
-    return out << T_Tag::name;
-}
+// template <typename T_Tag>
+// std::ostream& operator << (std::ostream& out, Placeholder<T_Tag>) {
+//     return out << "placeholder<" << T_Tag::name << ">";
+// }
 
-namespace impl_ {
-template <typename T, typename T_Tag>
-struct Kind_Of_<Placeholder<T, T_Tag>> {
-    static constexpr Expr_Kind value = Expr_Kind::placeholder;
-};
+#define RICCI_MAKE_PLACEHOLDER(NAME)                                   \
+struct NAME##_tag { static constexpr std::string_view name = #NAME; }; \
+inline constexpr Placeholder<NAME##_tag> NAME{};
 
-template <typename T, typename T_Tag>
-struct Result_Of_<Placeholder<T, T_Tag>> {
-    using type = T;
-};
-}  // namespace impl_
+RICCI_MAKE_PLACEHOLDER(x);
 }  // namespace ricci::xt
-
-#define RICCI_MAKE_PLACEHOLDER_TAG(NAME) \
-struct NAME##_Tag { static constexpr std::string_view name = #NAME; }
