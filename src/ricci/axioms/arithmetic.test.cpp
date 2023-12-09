@@ -5,7 +5,7 @@
 #include "ricci/axioms/associativity.hpp"
 #include "ricci/axioms/commutativity.hpp"
 #include "ricci/axioms/identity.hpp"
-#include "ricci/xt/operators.hpp"
+#include "ricci/core/operators.hpp"
 #endif
 
 #include <boost/preprocessor/seq/elem.hpp>
@@ -24,7 +24,7 @@ static_assert (                                                \
 ); __NL__
 
 namespace {
-namespace operators = ricci::xt::operators;
+namespace operators = ricci::core::operators;
 using ricci::axioms::is_associative;
 using ricci::axioms::is_commutative;
 using ricci::axioms::has_identity;

@@ -1,8 +1,8 @@
 #pragma once
 
+#include "ricci/core/operators.hpp"
 #include "ricci/xt/Expression.fwd.hpp"
 #include "ricci/xt/Operation.hpp"
-#include "ricci/xt/operators.hpp"
 
 namespace ricci::xt {
 #define RICCI_DEFINE_BINARY_OPERATION(ENTRY_POINT, IMPL) \
@@ -18,7 +18,7 @@ constexpr auto ENTRY_POINT (T_Lhs&& lhs, T_Rhs&& rhs) {  \
     );                                                   \
 }
 
-RICCI_DEFINE_BINARY_OPERATION(operator +, operators::add);
+RICCI_DEFINE_BINARY_OPERATION(operator +, core::operators::add);
 
 #undef RICCI_DEFINE_BINARY_OPERATION
 }  // namespace ricci::xt

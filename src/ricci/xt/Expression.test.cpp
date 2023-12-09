@@ -4,11 +4,11 @@
 #include <concepts>
 #include <type_traits>
 
+#include "ricci/core/operators.hpp"
 #include "ricci/xt/Constant.hpp"
 // #include "ricci/xt/Result_Of.hpp"
 #include "ricci/xt/Placeholder.hpp"
 #include "ricci/xt/Variable.hpp"
-#include "ricci/xt/operators.hpp"
 
 namespace {
 template <auto t_variable>
@@ -18,11 +18,11 @@ using Type_Of = std::remove_cvref_t<decltype(t_variable)>;
 
 
 namespace TEST_CASE_Expression_operators {
+using ricci::core::operators::add;
 using ricci::xt::Constant;
 using ricci::xt::Operation;
 using ricci::xt::Variable;
 using ricci::xt::constant;
-using ricci::xt::operators::add;
 using ricci::xt::x;
 using ricci::xt::x_tag;
 

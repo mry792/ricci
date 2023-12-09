@@ -66,7 +66,7 @@ struct TYPE {                                                \
 };                                                           \
 inline constexpr TYPE VAR{};
 
-namespace ricci::xt::operators {
+namespace ricci::core::operators {
 
 // assignment operators
 
@@ -211,7 +211,7 @@ struct Invoke {
     }
 };
 inline constexpr Invoke invoke{};
-}  // namespace ricci::xt::operators
+}  // namespace ricci::core::operators
 
 #undef FWD
 #undef RICCI_DEFINE_UNARY_PREFIX_OPERATOR
