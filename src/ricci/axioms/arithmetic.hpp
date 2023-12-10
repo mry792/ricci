@@ -57,7 +57,19 @@ struct Identity_<operators::add, T_Arg_1, T_Arg_2> {
 };
 
 template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
+struct Identity_<operators::subtract, T_Arg_1, T_Arg_2> {
+    using type = std::common_type_t<T_Arg_1, T_Arg_2>;
+    static constexpr xt::Constant<type{0}> value{};
+};
+
+template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
 struct Identity_<operators::multiply, T_Arg_1, T_Arg_2> {
+    using type = std::common_type_t<T_Arg_1, T_Arg_2>;
+    static constexpr xt::Constant<type{1}> value{};
+};
+
+template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
+struct Identity_<operators::divide, T_Arg_1, T_Arg_2> {
     using type = std::common_type_t<T_Arg_1, T_Arg_2>;
     static constexpr xt::Constant<type{1}> value{};
 };

@@ -32,26 +32,28 @@ using ricci::axioms::is_commutative;
 using ricci::axioms::has_identity;
 
 #define PREDICATES (is_associative)(is_closed)(is_commutative)(has_identity)
-#define OPERATIONS (operators::add)(operators::multiply)
 #define ARITHMETIC_TYPES (int)(short)(long)(double)(float)
 #define QUALIFIERS ()(&)(&&)( const)( const&)
 
+// All predicates hold for addition and multiplication.
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
     RICCI_MAKE_PREDICATE_ASSERT,
     (PREDICATES)
-    (OPERATIONS)
+    ((operators::add)(operators::multiply))
     (ARITHMETIC_TYPES)(QUALIFIERS)
     (ARITHMETIC_TYPES)(QUALIFIERS)
 )
 
+// Some predicates also hold for subtraction and division.
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
     RICCI_MAKE_PREDICATE_ASSERT,
-    ((is_closed))
+    ((is_closed)(has_identity))
     ((operators::subtract)(operators::divide))
     (ARITHMETIC_TYPES)(QUALIFIERS)
     (ARITHMETIC_TYPES)(QUALIFIERS)
 )
 
+// Subtraction with unsigned numbers is not closed.
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
     RICCI_MAKE_PREDICATE_ASSERT,
     ((not is_closed))
@@ -59,7 +61,6 @@ BOOST_PP_SEQ_FOR_EACH_PRODUCT(
     ((unsigned)(unsigned short)(unsigned long))(QUALIFIERS)
     (ARITHMETIC_TYPES)(QUALIFIERS)
 )
-
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
     RICCI_MAKE_PREDICATE_ASSERT,
     ((not is_closed))
