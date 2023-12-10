@@ -3,6 +3,7 @@
 #include "ricci/axioms/arithmetic.hpp"
 
 #include "ricci/axioms/associativity.hpp"
+#include "ricci/axioms/closure.hpp"
 #include "ricci/axioms/commutativity.hpp"
 #include "ricci/axioms/identity.hpp"
 #include "ricci/core/operators.hpp"
@@ -26,10 +27,11 @@ static_assert (                                                \
 namespace {
 namespace operators = ricci::core::operators;
 using ricci::axioms::is_associative;
+using ricci::axioms::is_closed;
 using ricci::axioms::is_commutative;
 using ricci::axioms::has_identity;
 
-#define PREDICATES (is_associative)(is_commutative)(has_identity)
+#define PREDICATES (is_associative)(is_closed)(is_commutative)(has_identity)
 #define OPERATIONS (operators::add)(operators::multiply)
 #define ARITHMETIC_TYPES (int)(short)(long)(double)(float)
 #define QUALIFIERS ()(&)(&&)( const)( const&)
@@ -40,6 +42,30 @@ BOOST_PP_SEQ_FOR_EACH_PRODUCT(
     (OPERATIONS)
     (ARITHMETIC_TYPES)(QUALIFIERS)
     (ARITHMETIC_TYPES)(QUALIFIERS)
+)
+
+BOOST_PP_SEQ_FOR_EACH_PRODUCT(
+    RICCI_MAKE_PREDICATE_ASSERT,
+    ((is_closed))
+    ((operators::subtract)(operators::divide))
+    (ARITHMETIC_TYPES)(QUALIFIERS)
+    (ARITHMETIC_TYPES)(QUALIFIERS)
+)
+
+BOOST_PP_SEQ_FOR_EACH_PRODUCT(
+    RICCI_MAKE_PREDICATE_ASSERT,
+    ((not is_closed))
+    ((operators::subtract))
+    ((unsigned)(unsigned short)(unsigned long))(QUALIFIERS)
+    (ARITHMETIC_TYPES)(QUALIFIERS)
+)
+
+BOOST_PP_SEQ_FOR_EACH_PRODUCT(
+    RICCI_MAKE_PREDICATE_ASSERT,
+    ((not is_closed))
+    ((operators::subtract))
+    (ARITHMETIC_TYPES)(QUALIFIERS)
+    ((unsigned)(unsigned short)(unsigned long))(QUALIFIERS)
 )
 
 #undef RICCI_MAKE_PREDICATE_ASSERT

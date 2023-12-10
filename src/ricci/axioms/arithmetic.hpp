@@ -1,8 +1,10 @@
 #pragma once
 
+#include <concepts>
 #include <type_traits>
 
 #include "ricci/axioms/associativity.hpp"
+#include "ricci/axioms/closure.hpp"
 #include "ricci/axioms/commutativity.hpp"
 #include "ricci/axioms/identity.hpp"
 #include "ricci/concepts/std_ext.hpp"
@@ -19,6 +21,24 @@ struct Is_Associative_<operators::add, T_Arg_1, T_Arg_2> : std::true_type {};
 
 template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
 struct Is_Associative_<operators::multiply, T_Arg_1, T_Arg_2> : std::true_type {};
+
+// closure
+
+template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
+struct Is_Closed_<operators::add, T_Arg_1, T_Arg_2> : std::true_type {};
+
+template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
+struct Is_Closed_<operators::subtract, T_Arg_1, T_Arg_2> : std::true_type {};
+
+template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
+requires (std::unsigned_integral<T_Arg_1> or std::unsigned_integral<T_Arg_2>)
+struct Is_Closed_<operators::subtract, T_Arg_1, T_Arg_2> : std::false_type {};
+
+template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
+struct Is_Closed_<operators::multiply, T_Arg_1, T_Arg_2> : std::true_type {};
+
+template <concepts::Arithmetic T_Arg_1, concepts::Arithmetic T_Arg_2>
+struct Is_Closed_<operators::divide, T_Arg_1, T_Arg_2> : std::true_type {};
 
 // commutativity
 
