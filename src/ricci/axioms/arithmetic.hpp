@@ -6,6 +6,7 @@
 #include "ricci/axioms/associativity.hpp"
 #include "ricci/axioms/closure.hpp"
 #include "ricci/axioms/commutativity.hpp"
+#include "ricci/axioms/distributivity.hpp"
 #include "ricci/axioms/identity.hpp"
 #include "ricci/axioms/inverse.hpp"
 #include "ricci/concepts/std_ext.hpp"
@@ -50,6 +51,36 @@ struct Is_Commutative_<operators::add, T_Arg_1, T_Arg_2> : std::true_type {};
 
 template <Arithmetic T_Arg_1, Arithmetic T_Arg_2>
 struct Is_Commutative_<operators::multiply, T_Arg_1, T_Arg_2> : std::true_type {};
+
+// distributivity
+
+template <Arithmetic T_1, Arithmetic T_2, Arithmetic T_3>
+struct Is_Distributive_<
+    operators::multiply, operators::add,
+    T_1, T_2, T_3
+> : std::true_type {};
+
+template <Arithmetic T_1, Arithmetic T_2, Arithmetic T_3>
+struct Is_Distributive_<
+    operators::multiply, operators::subtract,
+    T_1, T_2, T_3
+> : std::true_type {};
+
+template <Arithmetic T_1, Arithmetic T_2, Arithmetic T_3>
+requires std::floating_point<T_1> or
+    (std::floating_point<T_2> and std::floating_point<T_3>)
+struct Is_Right_Distributive_<
+    operators::divide, operators::add,
+    T_1, T_2, T_3
+> : std::true_type {};
+
+template <Arithmetic T_1, Arithmetic T_2, Arithmetic T_3>
+requires std::floating_point<T_1> or
+    (std::floating_point<T_2> and std::floating_point<T_3>)
+struct Is_Right_Distributive_<
+    operators::divide, operators::subtract,
+    T_1, T_2, T_3
+> : std::true_type {};
 
 // identity
 
